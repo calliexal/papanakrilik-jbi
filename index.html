@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Papan Akrilik Jambi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
 <style>
 :root{
   /* Layout: satu kolom lebar maks 1100px; beranda = 4 tile besar; katalog = grid kartu 2/3/4 kolom */
@@ -18,6 +18,8 @@
   --redup:#6B5040;
   --terang:#FFF8EE;
   --display:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --script:'Great Vibes','Cormorant Garamond',cursive;
+  --emas:#B8894D;
   --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   color-scheme:light;
 }
@@ -34,7 +36,7 @@ p{margin:0}
 .top{position:sticky;top:0;z-index:5;background:var(--krem);border-bottom:1px solid var(--garis)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:68px}
 .brand{display:flex;flex-direction:column;gap:2px;text-decoration:none}
-.brand b{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.04em;color:var(--cokelat);line-height:1}
+.brand b{font-family:var(--script);font-size:34px;font-weight:400;color:var(--cokelat);line-height:1}
 .brand span{font-size:11px;font-weight:600;letter-spacing:.28em;color:var(--redup)}
 .nav{display:none;gap:22px;font-size:14px;font-weight:600}
 .nav a{text-decoration:none;padding:12px 0}
@@ -50,40 +52,40 @@ main{padding:28px 0 56px}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;color:var(--redup);text-transform:uppercase}
 .stack{display:flex;flex-direction:column;gap:14px}
 .hero{display:grid;gap:22px;align-items:center}
-.hero h1{font-size:clamp(38px,7vw,60px)}
+.hero h1{font-family:var(--script);font-weight:400;font-size:clamp(50px,10vw,78px);line-height:1.05;color:var(--cokelat)}
 .hero p{max-width:46ch;color:#5E4636}
 .hero img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:22px}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
 .pill{font-size:13px;font-weight:600;background:var(--pasir);color:var(--cokelat);border-radius:999px;padding:8px 14px}
 
 section.block{margin-top:40px}
-.block > h2{font-size:30px;margin-bottom:16px}
+.block > h2{font-family:var(--script);font-weight:400;font-size:44px;margin-bottom:16px;color:var(--cokelat)}
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .tile{display:flex;flex-direction:column;background:var(--kertas);border:1px solid var(--garis);border-radius:22px;overflow:hidden;text-decoration:none;transition:transform .15s ease}
 .tile:hover{transform:translateY(-3px)}
 .tile img{width:100%;aspect-ratio:1/1;object-fit:cover}
 .tile div{padding:14px 14px 18px;display:flex;flex-direction:column;gap:4px}
-.tile b{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.1}
+.tile b{font-family:var(--script);font-size:clamp(26px,7.6vw,36px);font-weight:400;line-height:1.05;color:var(--cokelat);overflow-wrap:anywhere}
 .tile span{font-size:13px;color:var(--redup)}
 
 .rows{display:grid;gap:10px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:14px 18px;background:var(--pasir);border-radius:16px;text-decoration:none;font-size:16px;font-weight:600}
 .row:hover{background:#E2D1B9}
 .cta{background:var(--cokelat);color:var(--terang);border-radius:24px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
-.cta h2{font-size:30px;color:var(--terang)}
+.cta h2{font-family:var(--script);font-weight:400;font-size:44px;color:var(--terang)}
 .cta p{color:var(--pasir);max-width:52ch}
 
 .back{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:14px;font-weight:600;text-decoration:none}
 .back:hover{text-decoration:underline}
 .pagehead{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
-.pagehead h1{font-size:clamp(34px,6vw,48px)}
+.pagehead h1{font-family:var(--script);font-weight:400;font-size:clamp(48px,9vw,66px);line-height:1.05;color:var(--cokelat)}
 .pagehead p{color:#5E4636;max-width:60ch}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
 .chip{display:inline-flex;align-items:center;min-height:44px;padding:10px 18px;border-radius:999px;background:var(--pasir);font-weight:700;font-size:14px;text-decoration:none}
 .chip:hover{background:#E2D1B9}
 .chip[aria-current="true"]{background:var(--cokelat);color:var(--terang)}
 .group{margin-top:28px}
-.group > h2{font-size:28px;margin-bottom:14px;display:flex;align-items:baseline;gap:10px}
+.group > h2{font-family:var(--script);font-weight:400;font-size:40px;color:var(--cokelat);margin-bottom:14px;display:flex;align-items:baseline;gap:10px}
 .group > h2 small{font-family:var(--body);font-size:13px;font-weight:500;color:var(--redup)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .card{display:flex;flex-direction:column;background:var(--kertas);border:1px solid var(--garis);border-radius:18px;overflow:hidden;text-decoration:none;transition:transform .15s ease}
@@ -121,7 +123,7 @@ section.block{margin-top:40px}
 .review p{font-size:14px;overflow-wrap:anywhere}
 .review span{font-size:12px;color:var(--redup)}
 .form{background:var(--kertas);border:1px solid var(--garis);border-radius:22px;padding:20px;display:grid;gap:14px;max-width:560px}
-.form h2{font-size:28px}
+.form h2{font-family:var(--script);font-weight:400;font-size:40px;color:var(--cokelat)}
 .field{display:grid;gap:6px}
 .field label{font-size:14px;font-weight:600}
 .field small{font-size:12px;color:var(--redup)}
@@ -145,6 +147,18 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 footer b{color:var(--tinta)}
 .fab{position:fixed;right:16px;bottom:16px;z-index:6;box-shadow:0 8px 24px rgba(59,42,32,.28)}
 
+/* Kelip-kelip: bintang 4 sudut yang berdenyut */
+.sparkly{position:relative;isolation:isolate}
+.tw{position:absolute;z-index:2;width:var(--s,14px);height:var(--s,14px);color:var(--c,var(--emas));pointer-events:none;
+  background:currentColor;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);
+  filter:drop-shadow(0 0 6px rgba(255,240,210,.95));opacity:.2;transform:scale(.4);
+  animation:kelip var(--t,2.6s) ease-in-out var(--d,0s) infinite}
+.tw.putih{--c:#FFFDF8}
+@keyframes kelip{0%,100%{opacity:.15;transform:scale(.35) rotate(0deg)}45%{opacity:1;transform:scale(1) rotate(45deg)}60%{opacity:.9;transform:scale(.85) rotate(60deg)}}
+.glow{position:absolute;inset:auto;z-index:-1;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(201,160,100,.28),transparent 70%);animation:napas 4s ease-in-out infinite}
+@keyframes napas{0%,100%{opacity:.5;transform:scale(.92)}50%{opacity:1;transform:scale(1.05)}}
+.tile{position:relative}
+.tile div{position:relative}
 @media (min-width:700px){
   .nav{display:flex}
   .hero{grid-template-columns:1fr 1fr;gap:36px}
@@ -163,13 +177,14 @@ footer b{color:var(--tinta)}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .tile,.card{transition:none}
+  .tw,.glow{animation:none;opacity:.7;transform:none}
 }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#beranda"><b>Papan Akrilik</b><span>JAMBI</span></a>
+    <a class="brand sparkly" href="#beranda"><b>Papan Akrilik</b><span>JAMBI</span><i class="tw" aria-hidden="true" style="top:-6px;left:96%;--s:12px;--d:.3s"></i></a>
     <nav class="nav" aria-label="Menu utama">
       <a href="#harga">Harga</a>
       <a href="#jenis">Jenis papan</a>
@@ -275,6 +290,13 @@ function hargaList(){ var s={}; PRODUK.forEach(function(p){ s[p.harga]=1; }); re
 var PANAH = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
 var KIRI = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>';
 
+// Kelip-kelip: posisi tetap (bukan acak) supaya tampilan konsisten tiap dibuka.
+function kelip(titik, warna){
+  return titik.map(function(t, i){
+    return '<i class="tw' + (warna ? ' ' + warna : '') + '" aria-hidden="true" style="top:' + t[0] + '%;left:' + t[1] + '%;--s:' + t[2] + 'px;--d:' + (i * 0.55).toFixed(2) + 's;--t:' + (2.2 + (i % 3) * 0.5) + 's"></i>';
+  }).join('');
+}
+var POLA = [[8,10,14],[14,82,18],[52,6,10],[40,88,12],[70,70,9]];
 function card(p){
   return '<a class="card" href="#p-' + p.id + '">' +
     '<img loading="lazy" src="' + img(p.id) + '" alt="' + p.nama + '">' +
@@ -293,24 +315,24 @@ function chips(base, items, aktif){
 }
 function head(eyebrow, judul, ket){
   return '<a class="back" href="#beranda">' + KIRI + 'Beranda</a>' +
-    '<div class="pagehead"><span class="eyebrow">' + eyebrow + '</span><h1>' + judul + '</h1><p>' + ket + '</p></div>';
+    '<div class="pagehead sparkly">' + kelip([[0,58,16],[20,88,12],[56,72,10]]) + '<span class="eyebrow">' + eyebrow + '</span><h1>' + judul + '</h1><p>' + ket + '</p></div>';
 }
 
 // ---------- HALAMAN ----------
 function beranda(){
   var min = hargaList()[0], max = hargaList().slice(-1)[0];
   return '<section class="hero">' +
-    '<div class="stack"><span class="eyebrow">Katalog 200+ papan ucapan</span>' +
+    '<div class="stack sparkly"><span class="glow" aria-hidden="true" style="width:260px;height:260px;top:-40px;left:-60px"></span>' + kelip([[2,62,20],[22,92,14],[46,2,12],[60,80,16],[86,40,10]]) + '<span class="eyebrow">Katalog 200+ papan ucapan</span>' +
     '<h1>Mau cari papan yang mana, dear?</h1>' +
     '<p>Papan ucapan akrilik untuk wisuda, sempro, pernikahan, dan momen spesial lainnya. Mulai dari ' + rp(min) + '.</p>' +
     '<div class="pills"><span class="pill">Free ongkir antar jemput</span><span class="pill">Free gift mini akrilik</span></div></div>' +
-    '<img src="' + img('hero') + '" alt="Deretan papan ucapan akrilik terpasang di lokasi acara"></section>' +
+    '<div class="sparkly"><img src="' + img('hero') + '" alt="Deretan papan ucapan akrilik terpasang di lokasi acara">' + kelip([[8,8,18],[12,86,14],[70,92,20]], 'putih') + '</div></section>' +
 
     '<section class="block"><h2>Pilih cara melihat katalog</h2><div class="tiles">' +
-    '<a class="tile" href="#harga"><img src="' + img('marble') + '" alt=""><div><b>Berdasarkan Harga</b><span>' + min + 'K sampai ' + max + 'K</span></div></a>' +
-    '<a class="tile" href="#jenis"><img src="' + img('standing-pink') + '" alt=""><div><b>Jenis Papan</b><span>Standing, Jumbo, Mirror, Flower Box</span></div></a>' +
-    '<a class="tile" href="#warna"><img src="' + img('standing-blue') + '" alt=""><div><b>Warna Papan</b><span>Pink, biru, merah, hitam, krem</span></div></a>' +
-    '<a class="tile" href="#galeri"><img src="' + img('xj-pink') + '" alt=""><div><b>Foto Customer</b><span>Hasil asli di lokasi acara</span></div></a>' +
+    '<a class="tile sparkly" href="#harga"><img src="' + img('marble') + '" alt="">' + kelip([[6,8,16],[18,80,12],[44,88,18]], 'putih') + '<div>' + kelip([[10,86,11]]) + '<b>Berdasarkan Harga</b><span>' + min + 'K sampai ' + max + 'K</span></div></a>' +
+    '<a class="tile sparkly" href="#jenis"><img src="' + img('standing-pink') + '" alt="">' + kelip([[6,11,16],[18,76,12],[44,86,18]], 'putih') + '<div>' + kelip([[10,81,11]]) + '<b>Jenis Papan</b><span>Standing, Jumbo, Mirror, Flower Box</span></div></a>' +
+    '<a class="tile sparkly" href="#warna"><img src="' + img('standing-blue') + '" alt="">' + kelip([[6,14,16],[18,72,12],[44,84,18]], 'putih') + '<div>' + kelip([[10,76,11]]) + '<b>Warna Papan</b><span>Pink, biru, merah, hitam, krem</span></div></a>' +
+    '<a class="tile sparkly" href="#galeri"><img src="' + img('xj-pink') + '" alt="">' + kelip([[6,17,16],[18,68,12],[44,82,18]], 'putih') + '<div>' + kelip([[10,71,11]]) + '<b>Foto Customer</b><span>Hasil asli di lokasi acara</span></div></a>' +
     '</div></section>' +
 
     '<section class="block"><div class="rows">' +
@@ -319,7 +341,7 @@ function beranda(){
     '<a class="row" target="_blank" rel="noopener" href="https://instagram.com/papanakrilik.jbi">Instagram @papanakrilik.jbi' + PANAH + '</a>' +
     '</div></section>' +
 
-    '<section class="block"><div class="cta"><h2>Sudah ketemu yang cocok?</h2>' +
+    '<section class="block"><div class="cta sparkly">' + kelip([[12,88,16],[30,70,10],[70,94,13],[84,60,9]], 'putih') + '<h2>Sudah ketemu yang cocok?</h2>' +
     '<p>Kirim nama papan yang kamu pilih, admin bantu cek jadwal dan stok bunganya.</p>' +
     '<a class="btn light" target="_blank" rel="noopener" href="' + wa('Halo kak, saya mau tanya papan ucapan.') + '">Pesan via WhatsApp</a></div></section>';
 }
