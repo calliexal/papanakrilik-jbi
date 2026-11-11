@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Papan Akrilik Jambi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  /* Layout: satu kolom lebar maks 1100px; beranda = 4 tile besar; katalog = grid kartu 2/3/4 kolom */
+  --krem:#F6EFE4;
+  --kertas:#FFFAF2;
+  --pasir:#EADCC8;
+  --garis:#E0D0BA;
+  --cokelat:#4A3327;
+  --tinta:#3B2A20;
+  --redup:#6B5040;
+  --terang:#FFF8EE;
+  --display:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--krem);color:var(--tinta);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.1;margin:0;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:3px solid var(--cokelat);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+
+.top{position:sticky;top:0;z-index:5;background:var(--krem);border-bottom:1px solid var(--garis)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:68px}
+.brand{display:flex;flex-direction:column;gap:2px;text-decoration:none}
+.brand b{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.04em;color:var(--cokelat);line-height:1}
+.brand span{font-size:11px;font-weight:600;letter-spacing:.28em;color:var(--redup)}
+.nav{display:none;gap:22px;font-size:14px;font-weight:600}
+.nav a{text-decoration:none;padding:12px 0}
+.nav a:hover{text-decoration:underline}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:999px;background:var(--cokelat);color:var(--terang);font-weight:700;font-size:15px;text-decoration:none;border:1px solid var(--cokelat);cursor:pointer;font-family:inherit}
+.btn:hover{background:#372519}
+.btn.ghost{background:transparent;color:var(--tinta)}
+.btn.ghost:hover{background:var(--pasir)}
+.btn.light{background:var(--terang);color:var(--tinta);border-color:var(--terang)}
+.btn.small{min-height:44px;padding:10px 16px;font-size:14px}
+
+main{padding:28px 0 56px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;color:var(--redup);text-transform:uppercase}
+.stack{display:flex;flex-direction:column;gap:14px}
+.hero{display:grid;gap:22px;align-items:center}
+.hero h1{font-size:clamp(38px,7vw,60px)}
+.hero p{max-width:46ch;color:#5E4636}
+.hero img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:22px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:13px;font-weight:600;background:var(--pasir);color:var(--cokelat);border-radius:999px;padding:8px 14px}
+
+section.block{margin-top:40px}
+.block > h2{font-size:30px;margin-bottom:16px}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.tile{display:flex;flex-direction:column;background:var(--kertas);border:1px solid var(--garis);border-radius:22px;overflow:hidden;text-decoration:none;transition:transform .15s ease}
+.tile:hover{transform:translateY(-3px)}
+.tile img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.tile div{padding:14px 14px 18px;display:flex;flex-direction:column;gap:4px}
+.tile b{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.1}
+.tile span{font-size:13px;color:var(--redup)}
+
+.rows{display:grid;gap:10px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:14px 18px;background:var(--pasir);border-radius:16px;text-decoration:none;font-size:16px;font-weight:600}
+.row:hover{background:#E2D1B9}
+.cta{background:var(--cokelat);color:var(--terang);border-radius:24px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.cta h2{font-size:30px;color:var(--terang)}
+.cta p{color:var(--pasir);max-width:52ch}
+
+.back{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:14px;font-weight:600;text-decoration:none}
+.back:hover{text-decoration:underline}
+.pagehead{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.pagehead h1{font-size:clamp(34px,6vw,48px)}
+.pagehead p{color:#5E4636;max-width:60ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:10px 18px;border-radius:999px;background:var(--pasir);font-weight:700;font-size:14px;text-decoration:none}
+.chip:hover{background:#E2D1B9}
+.chip[aria-current="true"]{background:var(--cokelat);color:var(--terang)}
+.group{margin-top:28px}
+.group > h2{font-size:28px;margin-bottom:14px;display:flex;align-items:baseline;gap:10px}
+.group > h2 small{font-family:var(--body);font-size:13px;font-weight:500;color:var(--redup)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{display:flex;flex-direction:column;background:var(--kertas);border:1px solid var(--garis);border-radius:18px;overflow:hidden;text-decoration:none;transition:transform .15s ease}
+.card:hover{transform:translateY(-3px)}
+.card img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.card div{padding:12px 14px 14px;display:flex;flex-direction:column;gap:3px;flex:1}
+.card b{font-size:15px;font-weight:600;line-height:1.3}
+.card span{font-size:13px;color:var(--redup)}
+.card strong{font-size:16px;color:var(--cokelat);margin-top:auto;padding-top:4px;font-variant-numeric:tabular-nums}
+.empty{padding:28px;background:var(--kertas);border:1px dashed var(--garis);border-radius:18px;color:var(--redup)}
+
+.detail{display:grid;gap:24px}
+.detail .photo{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:22px}
+.detail h1{font-size:clamp(34px,6vw,46px)}
+.price{font-size:28px;font-weight:700;color:var(--cokelat);font-variant-numeric:tabular-nums}
+.spec{background:var(--kertas);border:1px solid var(--garis);border-radius:18px;padding:4px 16px}
+.spec div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--pasir);font-size:14px}
+.spec div:last-child{border-bottom:0}
+.spec dt{color:#5E4636}
+.spec dd{margin:0;font-weight:600;text-align:right}
+.addon{display:flex;gap:14px;align-items:center;background:var(--pasir);border-radius:18px;padding:14px}
+.addon img{width:84px;height:84px;object-fit:cover;border-radius:12px;flex:none}
+.addon b{display:block;font-size:14px}
+.addon span{font-size:13px;color:var(--cokelat)}
+.actions{display:flex;flex-direction:column;gap:10px}
+.actions .btn{width:100%}
+
+.gallery{columns:2;column-gap:12px}
+.gallery img{width:100%;border-radius:14px;margin-bottom:12px;break-inside:avoid}
+.reviews{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.review{background:var(--kertas);border:1px solid var(--garis);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.review img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.review div{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px}
+.review b{font-size:14px}
+.review p{font-size:14px;overflow-wrap:anywhere}
+.review span{font-size:12px;color:var(--redup)}
+.form{background:var(--kertas);border:1px solid var(--garis);border-radius:22px;padding:20px;display:grid;gap:14px;max-width:560px}
+.form h2{font-size:28px}
+.field{display:grid;gap:6px}
+.field label{font-size:14px;font-weight:600}
+.field small{font-size:12px;color:var(--redup)}
+.field input,.field select,.field textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid #C9B49A;border-radius:12px;background:#fff;color:var(--tinta);font:inherit}
+.field textarea{min-height:110px;resize:vertical}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.msg{font-size:14px;font-weight:600;border-radius:12px;padding:12px 14px;background:var(--pasir)}
+.msg[hidden]{display:none}
+.msg.err{background:#F6D9D4;color:#7A1F14}
+.msg.ok{background:#DCEBD9;color:#1F5130}
+.steps{display:grid;gap:12px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{counter-increment:s;display:flex;gap:14px;background:var(--kertas);border:1px solid var(--garis);border-radius:18px;padding:16px}
+.steps li::before{content:counter(s);flex:none;width:36px;height:36px;border-radius:18px;background:var(--cokelat);color:var(--terang);font-weight:700;display:flex;align-items:center;justify-content:center}
+.steps b{display:block}
+.list{display:grid;gap:10px;padding:0;margin:0;list-style:none}
+.list li{background:var(--kertas);border:1px solid var(--garis);border-radius:16px;padding:14px 16px}
+.note{font-size:13px;color:var(--redup);background:var(--pasir);border-radius:12px;padding:10px 14px;margin-top:14px}
+
+footer{border-top:1px solid var(--garis);padding:24px 0 96px;font-size:13px;color:#5E4636}
+footer .wrap{display:flex;flex-direction:column;gap:6px}
+footer b{color:var(--tinta)}
+.fab{position:fixed;right:16px;bottom:16px;z-index:6;box-shadow:0 8px 24px rgba(59,42,32,.28)}
+
+@media (min-width:700px){
+  .nav{display:flex}
+  .hero{grid-template-columns:1fr 1fr;gap:36px}
+  .tiles{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+  .rows{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  .detail{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:40px;align-items:start}
+  .gallery{columns:3}
+  .reviews{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  .actions{flex-direction:row}
+}
+@media (min-width:1000px){
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .gallery{columns:4}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .tile,.card{transition:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#beranda"><b>Papan Akrilik</b><span>JAMBI</span></a>
+    <nav class="nav" aria-label="Menu utama">
+      <a href="#harga">Harga</a>
+      <a href="#jenis">Jenis papan</a>
+      <a href="#warna">Warna</a>
+      <a href="#galeri">Foto customer</a>
+      <a href="#cara-pesan">Cara pesan</a>
+    </nav>
+  </div>
+</header>
+
+<main><div class="wrap" id="app"></div></main>
+
+<footer>
+  <div class="wrap">
+    <b>Papan Akrilik Jambi</b>
+    <span>WhatsApp +62 896-1853-4675</span>
+    <span>Instagram @papanakrilik.jbi</span>
+    <span>Free ongkir antar jemput</span>
+  </div>
+</footer>
+
+<a class="btn fab" id="fab" target="_blank" rel="noopener" href="https://wa.me/6289618534675">Chat WhatsApp</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js"></script>
+<script>
+// ---------- SUPABASE: isi dua nilai ini dari Project Settings > API. Anon key memang boleh publik; keamanan dijaga RLS. ----------
+var SUPABASE_URL = 'https://emklljioepqzefoopbds.supabase.co';
+var SUPABASE_ANON_KEY = 'sb_publishable_GfJ2SSrXpWagf7vQ-47Bhg_dCMj9L7l';
+var BUCKET = 'customer-photos';
+
+// ---------- DATA: semua produk ada di sini. Ubah harga/nama cukup di daftar ini. ----------
+var WA = '6289618534675';
+var JENIS = [
+  {slug:'standing', nama:'Standing Akrilik'},
+  {slug:'jumbo', nama:'Jumbo'},
+  {slug:'extra-jumbo', nama:'Extra Jumbo'},
+  {slug:'coquette', nama:'Coquette Series'},
+  {slug:'mirror', nama:'Mirror'},
+  {slug:'flower-box', nama:'Flower Box dan Love'},
+  {slug:'marble', nama:'Marble dan Polos'},
+  {slug:'small', nama:'Petak dan Small'}
+];
+var WARNA = [
+  {slug:'pink', nama:'Pink', hex:'#E88FB0'},
+  {slug:'biru', nama:'Biru', hex:'#5B8FD6'},
+  {slug:'merah', nama:'Merah', hex:'#B8262F'},
+  {slug:'ungu', nama:'Ungu', hex:'#9B7BC8'},
+  {slug:'hitam', nama:'Hitam', hex:'#222222'},
+  {slug:'putih', nama:'Putih', hex:'#FFFFFF'},
+  {slug:'kuning', nama:'Kuning', hex:'#E9C13B'},
+  {slug:'hijau', nama:'Hijau', hex:'#6FB58A'},
+  {slug:'krem', nama:'Krem dan Cokelat', hex:'#B58B63'}
+];
+// gift:true = katalog mencantumkan free gift mini akrilik untuk seri ini
+var PRODUK = [
+  {id:'standing-pink', nama:'Standing Akrilik Pink Fanta', jenis:'standing', harga:135, ukuran:'', warna:['pink'], gift:true},
+  {id:'standing-pinkblue', nama:'Standing Akrilik Pink Blue', jenis:'standing', harga:135, ukuran:'', warna:['pink','biru'], gift:true},
+  {id:'standing-purple', nama:'Standing Akrilik Full Purple', jenis:'standing', harga:135, ukuran:'', warna:['ungu'], gift:true},
+  {id:'standing-red', nama:'Standing Akrilik Full Red Ver.1', jenis:'standing', harga:135, ukuran:'', warna:['merah'], gift:true},
+  {id:'standing-blue', nama:'Standing Akrilik Blue', jenis:'standing', harga:135, ukuran:'', warna:['biru'], gift:true},
+  {id:'standing-brown', nama:'Standing Akrilik Brown', jenis:'standing', harga:135, ukuran:'', warna:['krem'], gift:true},
+  {id:'standing-green', nama:'Standing Akrilik Green', jenis:'standing', harga:135, ukuran:'', warna:['hijau','putih'], gift:true},
+  {id:'standing-yellow', nama:'Standing Akrilik Yellow', jenis:'standing', harga:135, ukuran:'', warna:['kuning','putih'], gift:true},
+  {id:'poppin', nama:'Poppin Series Purple Peach', jenis:'jumbo', harga:135, ukuran:'115 × 75 cm', warna:['ungu'], gift:true},
+  {id:'jumbo-pink', nama:'Pink Jumbo Center Pink Mawar', jenis:'jumbo', harga:135, ukuran:'115 × 75 cm', warna:['pink'], gift:true},
+  {id:'jumbo-choco', nama:'Red Krem Jumbo Choco Krem', jenis:'jumbo', harga:135, ukuran:'115 × 75 cm', warna:['krem'], gift:true},
+  {id:'jumbo-whiteblue', nama:'Jumbo Corner White Blue', jenis:'jumbo', harga:135, ukuran:'', warna:['putih','biru'], gift:true},
+  {id:'jumbo-sun', nama:'Yellow Jumbo Sun Center', jenis:'jumbo', harga:135, ukuran:'115 × 75 cm', warna:['kuning','hitam'], gift:true},
+  {id:'jumbo-pastelblue', nama:'Jumbo Corner Pastel Blue', jenis:'jumbo', harga:135, ukuran:'115 × 75 cm', warna:['biru'], gift:true},
+  {id:'jumbo-black', nama:'Jumbo Black Red', jenis:'jumbo', harga:135, ukuran:'115 × 75 cm', warna:['hitam','merah'], gift:true},
+  {id:'extra-jumbo', nama:'Extra Jumbo Putih Bunga Pink', jenis:'extra-jumbo', harga:230, ukuran:'230 × 75 cm', warna:['putih','pink'], gift:true, lebar:true},
+  {id:'xj-pink', nama:'Extra Jumbo Pink', jenis:'extra-jumbo', harga:230, ukuran:'230 × 75 cm', warna:['pink'], gift:true, lebar:true},
+  {id:'xj-blue', nama:'Extra Jumbo Putih Bunga Biru', jenis:'extra-jumbo', harga:230, ukuran:'230 × 75 cm', warna:['putih','biru'], gift:true, lebar:true},
+  {id:'coquette', nama:'Pink Coquette T Series T. Pink C1', jenis:'coquette', harga:100, ukuran:'60 × 80 cm', warna:['pink'], gift:true},
+  {id:'coquette-blue', nama:'Mix Coquette T Series T. Blue C5', jenis:'coquette', harga:100, ukuran:'60 × 80 cm', warna:['biru'], gift:true},
+  {id:'coquette-red', nama:'Pink Coquette M Series M. Red D5', jenis:'coquette', harga:100, ukuran:'60 × 80 cm', warna:['merah'], gift:true},
+  {id:'coquette-black', nama:'Pink Coquette M Series M. Black D7', jenis:'coquette', harga:100, ukuran:'60 × 80 cm', warna:['hitam'], gift:true},
+  {id:'mirror', nama:'Mirror Kubah', jenis:'mirror', harga:100, ukuran:'50 × 70 cm', warna:['biru'], gift:true},
+  {id:'mirrorbox', nama:'Mirror Flower Box Pinky Snow', jenis:'mirror', harga:100, ukuran:'50 × 70 cm', warna:['pink'], gift:true},
+  {id:'flowerbox', nama:'Flower Box Lovely Pink', jenis:'flower-box', harga:80, ukuran:'50 × 70 cm', warna:['pink']},
+  {id:'love', nama:'Love Anggrek', jenis:'flower-box', harga:80, ukuran:'', warna:['pink']},
+  {id:'love-putih', nama:'Love Putih', jenis:'flower-box', harga:80, ukuran:'', warna:['putih','biru']},
+  {id:'lovecorner', nama:'Flower Box Love Corner Merah', jenis:'flower-box', harga:70, ukuran:'40 × 60 cm', warna:['merah','putih']},
+  {id:'marble', nama:'Marble Pink Putih', jenis:'marble', harga:80, ukuran:'', warna:['pink','putih']},
+  {id:'marble-merah', nama:'Marble Merah Pink', jenis:'marble', harga:80, ukuran:'', warna:['merah','hitam']},
+  {id:'birumarble', nama:'Biru Marble Biru Putih', jenis:'marble', harga:80, ukuran:'', warna:['biru','hitam']},
+  {id:'ungu-lilac', nama:'Ungu Lilac', jenis:'marble', harga:80, ukuran:'', warna:['ungu','putih']},
+  {id:'marble-hijau', nama:'Polos Putih Bunga Putih', jenis:'marble', harga:70, ukuran:'', warna:['putih','hijau']},
+  {id:'cream', nama:'Cream Version', jenis:'marble', harga:70, ukuran:'', warna:['krem','hitam']},
+  {id:'petak', nama:'Petak Stiker Square Pink', jenis:'small', harga:80, ukuran:'50 × 70 cm', warna:['pink','putih']},
+  {id:'minisquare', nama:'Mini Square Toska', jenis:'small', harga:70, ukuran:'40 × 60 cm', warna:['hijau']},
+  {id:'small', nama:'Pink Series Small S. Pink E1', jenis:'small', harga:70, ukuran:'40 × 60 cm', warna:['pink']}
+];
+var GALERI = ['hero','cust2','standing-pinkblue','jumbo-black','xj-pink','coquette','love','jumbo-sun','standing-blue','mirror','extra-jumbo','marble-merah'];
+
+// ---------- BANTUAN ----------
+function rp(k){ return 'Rp' + k + '.000'; }
+function img(id){ return 'img/' + id + '.jpg'; }
+function jenisNama(slug){ for (var i=0;i<JENIS.length;i++) if (JENIS[i].slug===slug) return JENIS[i].nama; return slug; }
+function warnaNama(slug){ for (var i=0;i<WARNA.length;i++) if (WARNA[i].slug===slug) return WARNA[i].nama; return slug; }
+function wa(text){ return 'https://wa.me/' + WA + (text ? '?text=' + encodeURIComponent(text) : ''); }
+function hargaList(){ var s={}; PRODUK.forEach(function(p){ s[p.harga]=1; }); return Object.keys(s).map(Number).sort(function(a,b){return a-b;}); }
+var PANAH = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+var KIRI = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>';
+
+function card(p){
+  return '<a class="card" href="#p-' + p.id + '">' +
+    '<img loading="lazy" src="' + img(p.id) + '" alt="' + p.nama + '">' +
+    '<div><b>' + p.nama + '</b><span>' + (p.ukuran || jenisNama(p.jenis)) + '</span><strong>' + rp(p.harga) + '</strong></div></a>';
+}
+function grid(list){
+  if (!list.length) return '<p class="empty">Belum ada papan di kategori ini.</p>';
+  return '<div class="grid">' + list.map(card).join('') + '</div>';
+}
+function chips(base, items, aktif){
+  var h = '<nav class="chips" aria-label="Filter"><a class="chip" href="#' + base + '"' + (aktif ? '' : ' aria-current="true"') + '>Semua</a>';
+  items.forEach(function(it){
+    h += '<a class="chip" href="#' + base + '-' + it.slug + '"' + (aktif === String(it.slug) ? ' aria-current="true"' : '') + '>' + it.nama + '</a>';
+  });
+  return h + '</nav>';
+}
+function head(eyebrow, judul, ket){
+  return '<a class="back" href="#beranda">' + KIRI + 'Beranda</a>' +
+    '<div class="pagehead"><span class="eyebrow">' + eyebrow + '</span><h1>' + judul + '</h1><p>' + ket + '</p></div>';
+}
+
+// ---------- HALAMAN ----------
+function beranda(){
+  var min = hargaList()[0], max = hargaList().slice(-1)[0];
+  return '<section class="hero">' +
+    '<div class="stack"><span class="eyebrow">Katalog 200+ papan ucapan</span>' +
+    '<h1>Mau cari papan yang mana, dear?</h1>' +
+    '<p>Papan ucapan akrilik untuk wisuda, sempro, pernikahan, dan momen spesial lainnya. Mulai dari ' + rp(min) + '.</p>' +
+    '<div class="pills"><span class="pill">Free ongkir antar jemput</span><span class="pill">Free gift mini akrilik</span></div></div>' +
+    '<img src="' + img('hero') + '" alt="Deretan papan ucapan akrilik terpasang di lokasi acara"></section>' +
+
+    '<section class="block"><h2>Pilih cara melihat katalog</h2><div class="tiles">' +
+    '<a class="tile" href="#harga"><img src="' + img('marble') + '" alt=""><div><b>Berdasarkan Harga</b><span>' + min + 'K sampai ' + max + 'K</span></div></a>' +
+    '<a class="tile" href="#jenis"><img src="' + img('standing-pink') + '" alt=""><div><b>Jenis Papan</b><span>Standing, Jumbo, Mirror, Flower Box</span></div></a>' +
+    '<a class="tile" href="#warna"><img src="' + img('standing-blue') + '" alt=""><div><b>Warna Papan</b><span>Pink, biru, merah, hitam, krem</span></div></a>' +
+    '<a class="tile" href="#galeri"><img src="' + img('xj-pink') + '" alt=""><div><b>Foto Customer</b><span>Hasil asli di lokasi acara</span></div></a>' +
+    '</div></section>' +
+
+    '<section class="block"><div class="rows">' +
+    '<a class="row" href="#cara-pesan">Cara pesan' + PANAH + '</a>' +
+    '<a class="row" href="#rules">Rules pemesanan' + PANAH + '</a>' +
+    '<a class="row" target="_blank" rel="noopener" href="https://instagram.com/papanakrilik.jbi">Instagram @papanakrilik.jbi' + PANAH + '</a>' +
+    '</div></section>' +
+
+    '<section class="block"><div class="cta"><h2>Sudah ketemu yang cocok?</h2>' +
+    '<p>Kirim nama papan yang kamu pilih, admin bantu cek jadwal dan stok bunganya.</p>' +
+    '<a class="btn light" target="_blank" rel="noopener" href="' + wa('Halo kak, saya mau tanya papan ucapan.') + '">Pesan via WhatsApp</a></div></section>';
+}
+
+function halHarga(aktif){
+  var hs = hargaList();
+  var h = head('Katalog', 'Berdasarkan harga', 'Pilih budget kamu, lalu ketuk papan untuk lihat detailnya.');
+  h += chips('harga', hs.map(function(x){ return {slug:x, nama:x + 'K'}; }), aktif);
+  hs.forEach(function(x){
+    if (aktif && aktif !== String(x)) return;
+    var list = PRODUK.filter(function(p){ return p.harga === x; });
+    h += '<section class="group"><h2>' + rp(x) + '<small>' + list.length + ' papan</small></h2>' + grid(list) + '</section>';
+  });
+  return h;
+}
+function halJenis(aktif){
+  var h = head('Katalog', 'Jenis papan', 'Dari standing yang tinggi sampai extra jumbo 230 cm.');
+  h += chips('jenis', JENIS, aktif);
+  JENIS.forEach(function(j){
+    if (aktif && aktif !== j.slug) return;
+    var list = PRODUK.filter(function(p){ return p.jenis === j.slug; });
+    h += '<section class="group"><h2>' + j.nama + '<small>' + list.length + ' papan</small></h2>' + grid(list) + '</section>';
+  });
+  return h;
+}
+function halWarna(aktif){
+  var h = head('Katalog', 'Warna papan', 'Cari papan yang senada dengan tema acara kamu.');
+  h += chips('warna', WARNA, aktif);
+  WARNA.forEach(function(w){
+    if (aktif && aktif !== w.slug) return;
+    var list = PRODUK.filter(function(p){ return p.warna.indexOf(w.slug) > -1; });
+    h += '<section class="group"><h2>' + w.nama + '<small>' + list.length + ' papan</small></h2>' + grid(list) + '</section>';
+  });
+  return h;
+}
+function halGaleri(){
+  var opsi = PRODUK.map(function(p){ return '<option value="' + p.id + '">' + p.nama + '</option>'; }).join('');
+  return head('Galeri', 'Foto customer', 'Foto dan cerita dari customer yang sudah pesan.') +
+    '<div class="actions" style="margin-bottom:20px"><button type="button" class="btn" id="ke-form">Kirim foto kamu</button></div>' +
+    '<div id="ulasan"><p class="empty">Memuat foto customer…</p></div>' +
+    '<section class="block" id="form-foto"><form class="form" id="f-foto" novalidate>' +
+    '<h2>Kirim foto kamu</h2>' +
+    '<p>Foto tampil di halaman ini setelah dicek admin.</p>' +
+    '<div class="field"><label for="f-nama">Nama</label><input id="f-nama" name="nama" maxlength="40" autocomplete="name" required></div>' +
+    '<div class="field"><label for="f-produk">Papan yang dipesan <small>(opsional)</small></label><select id="f-produk" name="produk"><option value="">Pilih papan</option>' + opsi + '</select></div>' +
+    '<div class="field"><label for="f-komen">Komentar</label><textarea id="f-komen" name="komen" maxlength="300" required></textarea><small>Maksimal 300 karakter.</small></div>' +
+    '<div class="field"><label for="f-file">Foto</label><input id="f-file" name="foto" type="file" accept="image/jpeg,image/png,image/webp" required><small>JPG, PNG, atau WebP. Foto dikecilkan otomatis sebelum dikirim.</small></div>' +
+    '<div class="hp" aria-hidden="true"><label for="f-web">Website</label><input id="f-web" name="web" tabindex="-1" autocomplete="off"></div>' +
+    '<p class="msg" id="f-msg" role="status" hidden></p>' +
+    '<button type="submit" class="btn" id="f-kirim">Kirim foto</button>' +
+    '</form></section>';
+}
+
+// ---------- FOTO CUSTOMER (Supabase) ----------
+var sb = null;
+function db(){
+  if (sb) return sb;
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY || !window.supabase) return null;
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  return sb;
+}
+// Semua teks dari customer WAJIB lewat esc() sebelum masuk innerHTML (cegah XSS).
+function esc(v){
+  return String(v == null ? '' : v).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function produkNama(id){ for (var i=0;i<PRODUK.length;i++) if (PRODUK[i].id===id) return PRODUK[i].nama; return ''; }
+function contohGaleri(catatan){
+  return '<div class="gallery">' + GALERI.map(function(g){ return '<img loading="lazy" src="' + img(g) + '" alt="Papan ucapan terpasang di lokasi acara">'; }).join('') + '</div>' +
+    '<p class="note">' + catatan + '</p>';
+}
+function muatUlasan(){
+  var box = document.getElementById('ulasan');
+  if (!box) return;
+  var c = db();
+  if (!c) { box.innerHTML = contohGaleri('Supabase belum dihubungkan, jadi yang tampil masih foto dari katalog.'); return; }
+  c.from('customer_photos').select('id,name,comment,product_id,image_path,created_at')
+    .eq('status','approved').order('created_at',{ascending:false}).limit(60)
+    .then(function(res){
+      if (!document.getElementById('ulasan')) return;
+      if (res.error) { box.innerHTML = contohGaleri('Foto customer gagal dimuat. Coba muat ulang halaman.'); return; }
+      if (!res.data.length) { box.innerHTML = contohGaleri('Belum ada foto dari customer. Jadi yang pertama kirim, dear.'); return; }
+      box.innerHTML = '<div class="reviews">' + res.data.map(function(u){
+        var url = c.storage.from(BUCKET).getPublicUrl(u.image_path).data.publicUrl;
+        var tgl = new Date(u.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+        var pn = u.product_id ? produkNama(u.product_id) : '';
+        return '<article class="review"><img loading="lazy" src="' + esc(url) + '" alt="Foto dari ' + esc(u.name) + '">' +
+          '<div><b>' + esc(u.name) + '</b><p>' + esc(u.comment) + '</p><span>' + (pn ? esc(pn) + ' · ' : '') + esc(tgl) + '</span></div></article>';
+      }).join('') + '</div>';
+    });
+}
+// Kecilkan foto di browser: sisi terpanjang 1280px, JPEG. Hemat kuota customer dan storage.
+function kecilkan(file){
+  return new Promise(function(ok, gagal){
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){
+      var k = Math.min(1, 1280 / Math.max(im.width, im.height));
+      var cv = document.createElement('canvas');
+      cv.width = Math.round(im.width * k); cv.height = Math.round(im.height * k);
+      cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height);
+      URL.revokeObjectURL(url);
+      cv.toBlob(function(b){ b ? ok(b) : gagal(new Error('Foto tidak bisa diproses.')); }, 'image/jpeg', 0.82);
+    };
+    im.onerror = function(){ URL.revokeObjectURL(url); gagal(new Error('Berkas ini bukan foto yang bisa dibaca.')); };
+    im.src = url;
+  });
+}
+function uuid(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  var b = crypto.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+  var h = Array.prototype.map.call(b, function(x){ return ('0' + x.toString(16)).slice(-2); }).join('');
+  return h.slice(0,8) + '-' + h.slice(8,12) + '-' + h.slice(12,16) + '-' + h.slice(16,20) + '-' + h.slice(20);
+}
+function pesan(teks, jenis){
+  var m = document.getElementById('f-msg');
+  m.textContent = teks; m.className = 'msg' + (jenis ? ' ' + jenis : ''); m.hidden = false;
+}
+function kirimFoto(e){
+  e.preventDefault();
+  var f = e.target, tombol = document.getElementById('f-kirim');
+  var nama = f.nama.value.trim(), komen = f.komen.value.trim(), file = f.foto.files[0];
+  if (f.web.value) return; // honeypot: bot mengisi kolom tersembunyi
+  if (!nama) return pesan('Isi nama kamu dulu.', 'err');
+  if (!komen) return pesan('Tulis komentar kamu dulu.', 'err');
+  if (!file) return pesan('Pilih satu foto dulu.', 'err');
+  if (!/^image\/(jpeg|png|webp)$/.test(file.type)) return pesan('Foto harus JPG, PNG, atau WebP.', 'err');
+  if (file.size > 15 * 1024 * 1024) return pesan('Foto terlalu besar. Maksimal 15 MB.', 'err');
+  var c = db();
+  if (!c) return pesan('Form belum terhubung ke Supabase, jadi foto belum terkirim.', 'err');
+  tombol.disabled = true; pesan('Mengirim foto…');
+  var path = uuid() + '.jpg';
+  kecilkan(file).then(function(blob){
+    return c.storage.from(BUCKET).upload(path, blob, {contentType:'image/jpeg', upsert:false});
+  }).then(function(up){
+    if (up.error) throw up.error;
+    // Tanpa .select(): baris berstatus pending tidak boleh dibaca publik.
+    return c.from('customer_photos').insert({name:nama, comment:komen, product_id:f.produk.value || null, image_path:path});
+  }).then(function(ins){
+    if (ins.error) throw ins.error;
+    f.reset(); pesan('Terima kasih! Foto kamu tampil setelah dicek admin.', 'ok');
+  }).catch(function(){
+    pesan('Foto gagal dikirim. Cek koneksi kamu, lalu coba lagi.', 'err');
+  }).then(function(){ tombol.disabled = false; });
+}
+function initGaleri(){
+  muatUlasan();
+  document.getElementById('f-foto').addEventListener('submit', kirimFoto);
+  document.getElementById('ke-form').addEventListener('click', function(){
+    document.getElementById('form-foto').scrollIntoView({behavior:'smooth'});
+    document.getElementById('f-nama').focus({preventScroll:true});
+  });
+}
+
+function halCara(){
+  return head('Panduan', 'Cara pesan', 'Empat langkah, semuanya lewat WhatsApp.') +
+    '<ol class="steps">' +
+    '<li><div><b>Pilih papan di katalog</b>Cari berdasarkan harga, jenis, atau warna.</div></li>' +
+    '<li><div><b>Ketuk tombol Pesan via WhatsApp</b>Nama papan dan harganya otomatis terisi di chat.</div></li>' +
+    '<li><div><b>Kirim detail acara</b>Tanggal, lokasi pemasangan, dan teks ucapan yang mau ditulis.</div></li>' +
+    '<li><div><b>Tunggu konfirmasi admin</b>Admin cek jadwal dan stok bunga, lalu papan diantar dan dijemput gratis.</div></li>' +
+    '</ol><p class="note">Draf langkah untuk demo. Teks final menyusul dari admin.</p>' +
+    '<div class="actions" style="margin-top:20px"><a class="btn" href="#harga">Lihat katalog</a></div>';
+}
+function halRules(){
+  return head('Panduan', 'Rules pemesanan', 'Baca dulu sebelum pesan ya, dear.') +
+    '<ul class="list">' +
+    '<li>Free ongkir antar jemput.</li>' +
+    '<li>Jenis bunga disesuaikan dengan stok dan diinfokan saat H-1.</li>' +
+    '<li>Warna stiker mini akrilik hitam atau putih, tergantung stok.</li>' +
+    '<li>Mini akrilik Rp20.000 sebagai tambahan sewa papan, atau Rp30.000 jika dibeli tanpa sewa papan.</li>' +
+    '<li>[ATURAN DP DAN PELUNASAN]</li>' +
+    '<li>[ATURAN PEMBATALAN DAN GANTI JADWAL]</li>' +
+    '</ul><p class="note">Poin dalam kurung siku menunggu isi dari admin.</p>';
+}
+function halProduk(id){
+  var p = null;
+  PRODUK.forEach(function(x){ if (x.id === id) p = x; });
+  if (!p) return head('Katalog', 'Papan tidak ditemukan', 'Coba cari lagi dari katalog.') + '<a class="btn" href="#harga">Lihat katalog</a>';
+  var teks = 'Halo kak, saya mau pesan ' + p.nama + ' (' + rp(p.harga) + ').\nTanggal acara: \nLokasi: ';
+  var lain = PRODUK.filter(function(x){ return x.jenis === p.jenis && x.id !== p.id; }).slice(0,4);
+  var h = '<a class="back" href="#jenis-' + p.jenis + '">' + KIRI + jenisNama(p.jenis) + '</a>' +
+    '<article class="detail">' +
+    '<img class="photo" src="' + img(p.id) + '" alt="' + p.nama + '"' + (p.lebar ? ' style="aspect-ratio:3/2"' : '') + '>' +
+    '<div class="stack" style="gap:18px">' +
+    '<div class="stack" style="gap:8px"><span class="eyebrow">' + jenisNama(p.jenis) + '</span><h1>' + p.nama + '</h1><span class="price">' + rp(p.harga) + '</span></div>' +
+    '<dl class="spec" style="margin:0">' +
+    '<div><dt>Ukuran</dt><dd>' + (p.ukuran || 'Tanya admin') + '</dd></div>' +
+    '<div><dt>Warna</dt><dd>' + p.warna.map(warnaNama).join(', ') + '</dd></div>' +
+    '<div><dt>Ongkir</dt><dd>Gratis antar jemput</dd></div>' +
+    (p.gift ? '<div><dt>Free gift</dt><dd>Mini akrilik, bisa dibawa pulang</dd></div>' : '') +
+    '</dl>' +
+    '<div class="addon"><img loading="lazy" src="' + img('mini') + '" alt="Mini akrilik"><div><b>Tambah mini akrilik Rp20.000</b><span>Sudah termasuk bag. Warna stiker hitam atau putih, tergantung stok.</span></div></div>' +
+    '<div class="actions"><a class="btn" target="_blank" rel="noopener" href="' + wa(teks) + '">Pesan papan ini via WhatsApp</a>' +
+    '<a class="btn ghost" href="#harga-' + p.harga + '">Papan lain seharga ' + p.harga + 'K</a></div>' +
+    '</div></article>';
+  if (lain.length) h += '<section class="group"><h2>Papan serupa</h2>' + grid(lain) + '</section>';
+  return h;
+}
+
+// ---------- ROUTER (hanya #nama sederhana) ----------
+function render(){
+  var r = (location.hash || '').replace(/^#/, '');
+  var html, judul = 'Papan Akrilik Jambi';
+  if (r.indexOf('p-') === 0) html = halProduk(r.slice(2));
+  else if (r === 'harga' || r.indexOf('harga-') === 0) html = halHarga(r.slice(6));
+  else if (r === 'jenis' || r.indexOf('jenis-') === 0) html = halJenis(r.slice(6));
+  else if (r === 'warna' || r.indexOf('warna-') === 0) html = halWarna(r.slice(6));
+  else if (r === 'galeri') html = halGaleri();
+  else if (r === 'cara-pesan') html = halCara();
+  else if (r === 'rules') html = halRules();
+  else html = beranda();
+  document.getElementById('app').innerHTML = html;
+  window.scrollTo(0, 0);
+  if (r === 'galeri') initGaleri();
+}
+window.addEventListener('hashchange', render);
+render();
+</script>
+</body>
+</html>
